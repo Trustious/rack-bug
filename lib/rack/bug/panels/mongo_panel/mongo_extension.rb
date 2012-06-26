@@ -17,7 +17,7 @@ if defined?(Mongo)
     end
     alias_method_chain :send_message_with_safe_check, :rack_bug
 
-    def receive_message_with_rack_bug(operation, message, log_message=nil, socket=nil)
+    def receive_message_with_rack_bug(operation, message, log_message=nil, socket=nil, command=false, read=:primary, exhaust=false)
       Rack::Bug::MongoPanel.record(log_message || "A logger must be configured to catch receive message commands") do
         receive_message_without_rack_bug(operation, message, log_message, socket)
       end
